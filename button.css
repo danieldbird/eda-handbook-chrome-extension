@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100px;
+  background: #ccc;
+  margin: 1rem;
+  padding: 0;
+}
+
+button {
+  width: 100%;
+  border: none;
+  margin: 0.25rem 0;
+  padding: 0.25rem;
+}
+
+#changeDarkBtn {
+  color: white;
+  background: black;
+}
+
+#changeLightBtn {
+  color: black;
+  background: white;
+}
