@@ -2,23 +2,18 @@
 const changeDarkBtn = document.getElementById("changeDarkBtn");
 const changeLightBtn = document.getElementById("changeLightBtn");
 
-// what to do when the changeDarkBtn is clicked
-changeDarkBtn.addEventListener("click", async () => {
-  let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    function: changeDark,
-  });
-});
+// what to do when a button is clicked
+changeLightBtn.addEventListener("click", () => changeTheme(changeLight));
+changeDarkBtn.addEventListener("click", () => changeTheme(changeDark));
 
-// what to do when the changeLightBtn is clicked
-changeLightBtn.addEventListener("click", async () => {
+// handle theme changes
+async function changeTheme (themeFunction) {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   chrome.scripting.executeScript({
     target: { tabId: tab.id },
-    function: changeLight,
+    function: themeFunction,
   });
-});
+}
 
 // dark colour scheme
 function changeDark() {
