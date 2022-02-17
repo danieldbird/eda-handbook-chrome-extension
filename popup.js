@@ -30,8 +30,12 @@ function changeDark() {
   document.querySelector(".title").style.color = "#ccc";
   document.querySelector(".titleWrapper").style.borderBottom = "1px solid #ccc";
   document.querySelector(".mainWrapper").style.color = "#ccc";
+  document.querySelector(
+    "#gatsby-focus-wrapper > div > div.navBarWrapper > nav > div.navbar-header.navBarHeader > select"
+  ).style.color = "#333";
   document.querySelector(".previousBtn").style.backgroundColor = "#000";
   document.querySelector(".nextBtn").style.backgroundColor = "#000";
+
   document.querySelector(".nextPreviousTitle span").style.color = "#639";
   document.querySelector(
     "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > main > div > div.addPaddTopBottom > div > a.nextBtn > div.nextRightWrapper > div.nextPreviousTitle > span"
