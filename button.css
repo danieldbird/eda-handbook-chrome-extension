@@ -8,17 +8,21 @@ html {
 }
 
 body {
-  width: 100px;
+  width: max-content;
   background: #ccc;
   margin: 1rem;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 button {
-  width: 100%;
+  /* width: 100%; */
   border: none;
-  margin: 0.25rem 0;
-  padding: 0.25rem;
+  margin: 0.5rem;
+  padding: 0.5rem 2rem;
 }
 
 #changeDarkBtn {
@@ -29,4 +33,62 @@ button {
 #changeLightBtn {
   color: black;
   background: white;
+}
+
+/*   -   -   -   -   -   -   -*/
+/*       Slider Styling       */
+/*   -   -   -   -   -   -   -*/
+/* Notes :
+    -The way linear-gradient is done needs to be reconsidered, ugly code.
+    -Add support from moz and ie (or maybe not ie...)
+    -Thumb hover/focus style needs to be changed
+    -General style clean up required
+    -Change input selector to ID
+*/
+input[type="range"]::-webkit-slider-runnable-track {
+  margin: 0.5rem 0;
+  width: 100%;
+  height: 1rem;
+  cursor: pointer;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: linear-gradient(
+    to right,
+    hsl(0deg, 100%, 15%),
+    hsl(30deg, 100%, 15%),
+    hsl(60deg, 100%, 15%),
+    hsl(90deg, 100%, 15%),
+    hsl(120deg, 100%, 15%),
+    hsl(150deg, 100%, 15%),
+    hsl(180deg, 100%, 15%),
+    hsl(210deg, 100%, 15%),
+    hsl(240deg, 100%, 15%),
+    hsl(270deg, 100%, 15%),
+    hsl(300deg, 100%, 15%),
+    hsl(330deg, 100%, 15%),
+    hsl(360deg, 100%, 15%)
+  );
+  border-radius: 25px;
+  border: 0px solid #000101;
+  transition: all 0.2s ease-in-out;
+}
+input[type="range"]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 3px solid hsla(0, 0%, 50%, 1);
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+  background: hsla(0, 0%, 80%, 1);
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: all 0.2s ease-in-out;
+}
+
+input[type="range"]:focus::-webkit-slider-runnable-track,
+input[type="range"]:hover::-webkit-slider-runnable-track {
+  filter: brightness(140%);
+}
+input[type="range"]:focus::-webkit-slider-thumb,
+input[type="range"]:hover::-webkit-slider-thumb {
+  background: hsla(0, 50%, 20%, 1);
+  filter: brightness(100%);
 }
