@@ -18,6 +18,10 @@ async function changeTheme(themeFunction, ...args) {
   });
 }
 
+const styleElement = document.createElement("style");
+styleElement.setAttribute("id", "eda-test");
+document.getElementsByTagName("head")[0].appendChild(styleElement);
+
 // dark colour scheme
 function changeDark() {
   const styleElement = document.createElement("style");
@@ -69,28 +73,60 @@ function changeSelectedColor(hValue) {
   let textPrimary = `hsl(${hValue}deg, 0%, 100%)`;
   let textSecondary = `hsl(${hValue}deg, 0%, 80%)`;
 
-  //add colours
-  document.body.style.backgroundColor = secondary;
-  document.body.style.color = textPrimary;
-  document.querySelector(".navBarDefault").style.backgroundColor = primary;
-  document.querySelector(".css-1p56bun").style.backgroundColor = secondary;
-  document.querySelector(".enpob61").style.backgroundColor = "red";
-  document.querySelector(".title").style.color = textPrimary;
-  document.querySelector(".titleWrapper").style.borderBottom = "1px solid #ccc";
-  document.querySelector(".mainWrapper").style.color = textPrimary;
-  document.querySelector(
-    "#gatsby-focus-wrapper > div > div.navBarWrapper > nav > div.navbar-header.navBarHeader > select"
-  ).style.color = "#333";
-  document.querySelector(".previousBtn").style.backgroundColor = tertiary;
-  document.querySelector(".nextBtn").style.backgroundColor = tertiary;
+  document.getElementById("eda-chrome-extension-styles").innerHTML = `
+  body, main {
+    background: ${secondary} !important;
+  }
 
-  document.querySelector(".nextPreviousTitle span").style.color = textPrimary;
-  document.querySelector(
-    "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > main > div > div.addPaddTopBottom > div > a.nextBtn > div.nextRightWrapper > div.nextPreviousTitle > span"
-  ).style.color = textPrimary;
-  document.querySelector("div.hidden-xs.css-192n44p.e1235q823 > aside").style.backgroundColor =
-    primary;
-  document.querySelector(
-    "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > div.hidden-xs.css-192n44p.e1235q823 > aside"
-  ).style.color = "red !important";
+  .navBarDefault, aside {
+    background: ${primary} !important;
+  }
+
+  p , li, ul, a {
+    color: ${textSecondary} !important;
+  }
+
+  table, thead, tr, td, th {
+    background: ${secondary};
+    color: ${textPrimary};
+  }
+
+  ::-webkit-scrollbar {
+    width: 1em;
+    background: ${tertiary};
+  }
+   
+  ::-webkit-scrollbar-track {
+    // box-shadow: inset 0 0 6px ${accent};
+  }
+   
+  ::-webkit-scrollbar-thumb {
+    background-color: ${primary};
+    outline: 1px solid ${secondary};
+  }
+  `;
+  //add colours
+  // document.body.style.backgroundColor = secondary;
+  // document.body.style.color = textPrimary;
+  // document.querySelector(".navBarDefault").style.backgroundColor = primary;
+  // document.querySelector(".css-1p56bun").style.backgroundColor = secondary;
+  // document.querySelector(".enpob61").style.backgroundColor = "red";
+  // document.querySelector(".title").style.color = textPrimary;
+  // document.querySelector(".titleWrapper").style.borderBottom = "1px solid #ccc";
+  // document.querySelector(".mainWrapper").style.color = textPrimary;
+  // document.querySelector(
+  //   "#gatsby-focus-wrapper > div > div.navBarWrapper > nav > div.navbar-header.navBarHeader > select"
+  // ).style.color = "#333";
+  // document.querySelector(".previousBtn").style.backgroundColor = tertiary;
+  // document.querySelector(".nextBtn").style.backgroundColor = tertiary;
+
+  // document.querySelector(".nextPreviousTitle span").style.color = textPrimary;
+  // document.querySelector(
+  //   "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > main > div > div.addPaddTopBottom > div > a.nextBtn > div.nextRightWrapper > div.nextPreviousTitle > span"
+  // ).style.color = textPrimary;
+  // document.querySelector("div.hidden-xs.css-192n44p.e1235q823 > aside").style.backgroundColor =
+  //   primary;
+  // document.querySelector(
+  //   "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > div.hidden-xs.css-192n44p.e1235q823 > aside"
+  // ).style.color = "red !important";
 }
