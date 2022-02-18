@@ -21,6 +21,7 @@ async function changeTheme(themeFunction, ...args) {
 // dark colour scheme
 function changeDark() {
   const styleElement = document.createElement("style");
+  styleElement.setAttribute("id", "eda-chrome-extension-styles");
   styleElement.innerHTML = `
   body, .navBarDefault, aside, main {
     background: #111 !important;
@@ -55,8 +56,7 @@ function changeDark() {
 
 // light colour scheme
 function changeLight() {
-  document.body.style.backgroundColor = "white";
-  document.body.style.color = "black";
+  document.getElementById("eda-chrome-extension-styles").remove();
 }
 
 // theme based on color selector
