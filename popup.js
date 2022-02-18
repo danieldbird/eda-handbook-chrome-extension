@@ -24,34 +24,44 @@ document.getElementsByTagName("head")[0].appendChild(styleElement);
 
 // dark colour scheme
 function changeDark() {
+  let primary = `#555`;
+  let secondary = `#111`;
+  let tertiary = `#ddd`;
+  let accent = `#fff`;
+  let textPrimary = `#ccc`;
+  let textSecondary = `#ccc`;
   const styleElement = document.createElement("style");
   styleElement.setAttribute("id", "eda-chrome-extension-styles");
   styleElement.innerHTML = `
-  body, .navBarDefault, aside, main {
-    background: #111 !important;
+  body, main {
+    background: ${secondary} !important;
   }
 
-  p , li, ul, a {
-    color: #555 !important;
+  .navBarDefault, aside, .previousBtn, .nextBtn {
+    background: ${primary} !important
+  }
+
+  p , li, ul, a, h1, h2, h3, h4, h5 {
+    color: ${textSecondary} !important;
   }
 
   table, thead, tr, td, th {
-    background: #222;
-    color: #ccc;
+    background: ${secondary};
+    color: ${textPrimary};
   }
 
   ::-webkit-scrollbar {
     width: 1em;
-    background: #ddd;
+    background: ${tertiary};
   }
    
   ::-webkit-scrollbar-track {
-    // box-shadow: inset 0 0 6px #fff;
+    // box-shadow: inset 0 0 6px ${accent};
   }
    
   ::-webkit-scrollbar-thumb {
-    background-color: darkgrey;
-    outline: 1px solid slategrey;
+    background-color: ${primary};
+    outline: 1px solid ${secondary};
   }
 
   `;
@@ -73,6 +83,12 @@ function changeSelectedColor(hValue) {
   let textPrimary = `hsl(${hValue}deg, 0%, 100%)`;
   let textSecondary = `hsl(${hValue}deg, 0%, 80%)`;
 
+  if (!document.getElementById("eda-chrome-extension-styles")) {
+    const styleElement = document.createElement("style");
+    styleElement.setAttribute("id", "eda-chrome-extension-styles");
+    document.getElementsByTagName("head")[0].appendChild(styleElement);
+  }
+
   document.getElementById("eda-chrome-extension-styles").innerHTML = `
   body, main {
     background: ${secondary} !important;
@@ -80,9 +96,10 @@ function changeSelectedColor(hValue) {
 
   .navBarDefault, aside {
     background: ${primary} !important;
+    background-color: ${primary} !important;
   }
 
-  p , li, ul, a {
+  p , li, ul, a, h1, h2, h3, h4, h5 {
     color: ${textSecondary} !important;
   }
 
