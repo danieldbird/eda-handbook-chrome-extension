@@ -1,14 +1,23 @@
-// get the buttons
+  /*-   -   -   -   -   -   -   */
+  /*    buttons and listeners   */
+  /*-   -   -   -   -   -   -   */
+
+//get buttons/inputs
 const changeDarkBtn = document.getElementById("changeDarkBtn");
 const changeLightBtn = document.getElementById("changeLightBtn");
 const colorSelector = document.querySelector("#colorRange");
 
-// what to do when a button is clicked
+//add listeners
 changeLightBtn.addEventListener("click", () => changeTheme(changeLight));
 changeDarkBtn.addEventListener("click", () => changeTheme(changeDark));
 colorSelector.addEventListener("input", (e) => changeTheme(changeSelectedColor, e.target.value));
 
-// handle theme changes
+
+  /*-   -   -   -   -   -   -   */
+  /*      Main Functions        */
+  /*-   -   -   -   -   -   -   */
+
+// pass themFunction to eda website
 async function changeTheme(themeFunction, ...args) {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
   if (tab.url.match(/.*handbook\.eda\.nz.*/)) {
@@ -24,11 +33,17 @@ async function changeTheme(themeFunction, ...args) {
   }
 }
 
+// create style element
 const styleElement = document.createElement("style");
 styleElement.setAttribute("id", "eda-test");
 document.getElementsByTagName("head")[0].appendChild(styleElement);
 
-// dark colour scheme
+
+  /*-   -   -   -   -   -*/
+  /*        Themes       */
+  /*-   -   -   -   -   -*/
+
+ // Dark Theme 
 function changeDark() {
   let primary = `#555`;
   let secondary = `#111`;
@@ -74,12 +89,12 @@ function changeDark() {
   document.getElementsByTagName("head")[0].appendChild(styleElement);
 }
 
-// light colour scheme
+// Light / default theme
 function changeLight() {
   document.getElementById("eda-chrome-extension-styles").remove();
 }
 
-// theme based on color selector
+// Selected Colour Theme
 function changeSelectedColor(hValue) {
   //define colours
   let primary = `hsl(${hValue}deg, 100%, 10%)`;
@@ -128,28 +143,10 @@ function changeSelectedColor(hValue) {
     outline: 1px solid ${secondary};
   }
   `;
-  //add colours
-  // document.body.style.backgroundColor = secondary;
-  // document.body.style.color = textPrimary;
-  // document.querySelector(".navBarDefault").style.backgroundColor = primary;
-  // document.querySelector(".css-1p56bun").style.backgroundColor = secondary;
-  // document.querySelector(".enpob61").style.backgroundColor = "red";
-  // document.querySelector(".title").style.color = textPrimary;
-  // document.querySelector(".titleWrapper").style.borderBottom = "1px solid #ccc";
-  // document.querySelector(".mainWrapper").style.color = textPrimary;
-  // document.querySelector(
-  //   "#gatsby-focus-wrapper > div > div.navBarWrapper > nav > div.navbar-header.navBarHeader > select"
-  // ).style.color = "#333";
-  // document.querySelector(".previousBtn").style.backgroundColor = tertiary;
-  // document.querySelector(".nextBtn").style.backgroundColor = tertiary;
-
-  // document.querySelector(".nextPreviousTitle span").style.color = textPrimary;
-  // document.querySelector(
-  //   "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > main > div > div.addPaddTopBottom > div > a.nextBtn > div.nextRightWrapper > div.nextPreviousTitle > span"
-  // ).style.color = textPrimary;
-  // document.querySelector("div.hidden-xs.css-192n44p.e1235q823 > aside").style.backgroundColor =
-  //   primary;
-  // document.querySelector(
-  //   "#gatsby-focus-wrapper > div > div.css-1s71mnb.e1235q820 > div.hidden-xs.css-192n44p.e1235q823 > aside"
-  // ).style.color = "red !important";
 }
+
+  /*-   -   -   -   -   -   -   - */
+  /*     Helper/Util Functions    */
+  /*-   -   -   -   -   -   -   - */
+
+
