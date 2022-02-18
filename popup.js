@@ -11,11 +11,17 @@ colorSelector.addEventListener("input", (e) => changeTheme(changeSelectedColor, 
 // handle theme changes
 async function changeTheme(themeFunction, ...args) {
   let [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    func: themeFunction,
-    args: [...args],
-  });
+  if (tab.url.match(/.*handbook\.eda\.nz.*/)) {
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: themeFunction,
+      args: [...args],
+    });
+  } else { // if not on eda website
+    let popup = document.querySelector('body');
+    popup.innerHTML = '';
+    popup.textContent = "Only works on handbook.eda.nz";
+  }
 }
 
 const styleElement = document.createElement("style");
