@@ -10,7 +10,7 @@ const colorSelector = document.querySelector("#colorRange");
 //add listeners
 changeLightBtn.addEventListener("click", () => changeTheme( { reset : true } ));
 changeDarkBtn.addEventListener("click", () => changeTheme( { theme : darkTheme } ));
-// colorSelector.addEventListener("input", (e) => changeTheme({ customTemplate = { templateFunction : colorThemeTemplate, templateArgs : e.target.value } }));
+colorSelector.addEventListener("input", (e) => changeTheme({ customTheme :  colorTheme( e.target.value ) }));
 
 
   /*-   -   -   -   -   -   -   */
@@ -34,7 +34,8 @@ async function changeTheme(...args) {
 }
 
 // add create the theme css add add/update <style> tags  - or remove style tags
-function applyTheme ({reset = false, theme=null, customTemplate = {templateFunction: null, templateArgs: null}}) {
+function applyTheme ( {reset = false, theme = null, customTheme = null} ) {
+  
   //if reset = true passed, remove style element and exit function
   if (reset) { 
     getStyleEl() && getStyleEl().remove();
@@ -42,13 +43,9 @@ function applyTheme ({reset = false, theme=null, customTemplate = {templateFunct
     return;
   };
 
-  //if customTemplate has been added, call templateFunction(template Args) to create themeCSS, otherwise use theme
-  let themeCSS;
-  if (customTemplate.templateFunction && customTemplate.templateArgs) {
-    themeCSS = customTemplate.templateFunction( customTemplate.templateArgs );
-  } else {
-    themeCSS = createCSS(theme);
-  }
+  //if a custom theme  has been added use that, otherwise create the css using default template and theme object
+  let themeCSS = customTheme || createCSS(theme);
+
   // use theme to create css and add to the DOM
   addStyleElement(themeCSS);
 
@@ -108,16 +105,22 @@ const midnightTheme = {
   textSecondary : `#ccc`,
 }
 
-function colorThemeTemplate (hValue) {
+function colorTheme (hValue) {
   // create colours based on hValue from slider
-  let theme = {
-    primary : `hsl(${hValue}deg, 100%, 10%)`,
-    secondary : `hsl(${hValue}deg, 20%, 10%)`,
-    tertiary : `hsl(${hValue}deg, 5%, 50%)`,
-    accent : `hsl(${hValue}deg, 80%, 50%)`,
-    textPrimary : `hsl(${hValue}deg, 0%, 100%)`,
-    textSecondary : `hsl(${hValue}deg, 0%, 80%)`,
-  };
+  let primary = `hsl(${hValue}deg, 100%, 10%)`;
+  let secondary = `hsl(${hValue}deg, 20%, 10%)`;
+  let tertiary = `hsl(${hValue}deg, 5%, 50%)`;
+  let accent = `hsl(${hValue}deg, 80%, 50%)`;
+  let textPrimary = `hsl(${hValue}deg, 0%, 100%)`;
+  let textSecondary = `hsl(${hValue}deg, 0%, 80%)`;
   // use default css template to create themeCSS
-  return createCSS(theme)
+  return (`
+  body, main { background: ${secondary} !important; }
+  .navBarDefault, aside, .previousBtn, .nextBtn { background: ${primary} !important; }
+  p , li, ul, a, h1, h2, h3, h4, h5 { color: ${textSecondary} !important; }
+  table, thead, tr, td, th { background: ${secondary}; color: ${textPrimary}; }
+  ::-webkit-scrollbar { width: 1em; background: ${tertiary}; }
+  //::-webkit-scrollbar-track { box-shadow: inset 0 0 6px ${accent}; }
+  ::-webkit-scrollbar-thumb { background-color: ${primary}; outline: 1px solid ${secondary}; }
+`)
 }
