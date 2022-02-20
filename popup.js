@@ -35,7 +35,7 @@ async function changeTheme(...args) {
 
 // add create the theme css add add/update <style> tags  - or remove style tags
 function applyTheme ( {reset = false, theme = null, customTheme = null} ) {
-  
+
   //if reset = true passed, remove style element and exit function
   if (reset) { 
     getStyleEl() && getStyleEl().remove();
@@ -107,15 +107,15 @@ const midnightTheme = {
 
 function colorTheme (hValue) {
   // create colours based on hValue from slider
-  let primary = `hsl(${hValue}deg, 100%, 10%)`;
-  let secondary = `hsl(${hValue}deg, 20%, 10%)`;
+  let primary = `hsl(${hValue}deg, 50%, 10%)`;
+  let secondary = `hsl(${hValue}deg, 60%, 12%)`;
   let tertiary = `hsl(${hValue}deg, 5%, 50%)`;
   let accent = `hsl(${hValue}deg, 80%, 50%)`;
   let textPrimary = `hsl(${hValue}deg, 0%, 100%)`;
   let textSecondary = `hsl(${hValue}deg, 0%, 80%)`;
   // use default css template to create themeCSS
   return (`
-  body, main { background: ${secondary} !important; }
+  body, main, .css-1p56bun { background: ${secondary} !important; }
   .navBarDefault, aside, .previousBtn, .nextBtn { background: ${primary} !important; }
   p , li, ul, a, h1, h2, h3, h4, h5 { color: ${textSecondary} !important; }
   table, thead, tr, td, th { background: ${secondary}; color: ${textPrimary}; }
